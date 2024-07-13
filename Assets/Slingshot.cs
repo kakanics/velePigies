@@ -12,15 +12,17 @@ public class Slingshot : MonoBehaviour
     private Vector3 dragDirection; 
     public int trajectoryPoints = 30; // Number of points to display in the trajectory (higher = longer trajectory)
     public float hookCatchThreshold = 0.1f; // Maximum velocity to catch the hook
-    [HideInInspector]public cameraMovement cameraFollow;// Reference to the cameraFollow script, set using setReferences script 
-
-    [HideInInspector]public worldShift worldShift; // Reference to the worldShift script, set using setReferences script
+    // following variables set using setReferences script 
+    [HideInInspector]public cameraMovement cameraFollow;
+    [HideInInspector]public hookSpawner hookSpawner;
+    [HideInInspector]public worldShift worldShift;
     void Start()
     {
         startPosition = transform.position; 
         rb = GetComponent<Rigidbody2D>(); 
         lineRenderer = GetComponent<LineRenderer>();
         rb.gravityScale = 0; // Disable gravity initially
+        hookSpawner.spawnHooks();
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -30,7 +32,7 @@ public class Slingshot : MonoBehaviour
         {
             catchHook(other.transform.position);
             cameraFollow.MoveCamera();
-            StartCoroutine(ShiftWorldAfterDelay(0.1f));
+            StartCoroutine(ShiftWorldAfterDelay(0.1f)); // hooks spawned after the world is shifted
             other.enabled=false;
         }
     }
@@ -106,5 +108,6 @@ public class Slingshot : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         worldShift.shiftWorld(); 
+        hookSpawner.spawnHooks();
     }
 }
