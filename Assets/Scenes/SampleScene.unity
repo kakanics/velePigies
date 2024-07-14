@@ -664,7 +664,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   followObject: {fileID: 1115470966}
-  offset: {x: 0, y: 3.15, z: -10}
+  offset: {x: -0, y: 3.15, z: -10}
   smoothSpeed: 0.1
 --- !u!1 &548118436
 GameObject:
@@ -939,9 +939,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxDistance: 1
-  forceMultiplier: 10
-  trajectoryPoints: 20
-  hookCatchThreshold: 10
+  forceMultiplier: 12
+  trajectoryPoints: 5
+  hookCatchThreshold: 8
   cameraFollow: {fileID: 0}
   hookSpawner: {fileID: 0}
   worldShift: {fileID: 0}
