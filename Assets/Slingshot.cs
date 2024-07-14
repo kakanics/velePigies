@@ -8,6 +8,7 @@ public class Slingshot : MonoBehaviour
     public float forceMultiplier = 10f;
     private Vector3 startPosition;
     private bool isDragging = false;
+    private bool isFlying = false;
     public float dragRegionRadius = 0.1f;
     private Rigidbody2D rb;
     private Vector3 dragDirection;
@@ -45,49 +46,54 @@ public class Slingshot : MonoBehaviour
         rb.gravityScale = 0;
         rb.position = hookPosition;
         startPosition.x = hookPosition.x;
+        isFlying = false;
     }
 
     void Update()
     {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0;
-        if (Input.GetMouseButtonDown(0) && mousePosition.x < rb.position.x +dragRegionRadius && mousePosition.x > rb.position.x-dragRegionRadius && mousePosition.y < rb.position.y +dragRegionRadius && mousePosition.y < rb.position.y +dragRegionRadius)
+        if (!isFlying)
         {
-            isDragging = true;
-            lineRenderer.enabled = true; // Enable the line renderer when dragging starts
-        }
-
-        if (isDragging)
-        {
-            Vector3 direction = mousePosition - startPosition;
-
-            if (direction.magnitude > maxDistance) // limitation of how much can be pulled
+            if (Input.GetMouseButtonDown(0) && mousePosition.x < rb.position.x + dragRegionRadius && mousePosition.x > rb.position.x - dragRegionRadius && mousePosition.y < rb.position.y + dragRegionRadius && mousePosition.y < rb.position.y + dragRegionRadius)
             {
-                direction = direction.normalized * maxDistance;
+                isDragging = true;
+                lineRenderer.enabled = true; // Enable the line renderer when dragging starts
             }
-            dragDirection = direction;
+
+            if (isDragging)
+            {
+                Vector3 direction = mousePosition - startPosition;
+
+                if (direction.magnitude > maxDistance) // limitation of how much can be pulled
+                {
+                    direction = direction.normalized * maxDistance;
+                }
+                dragDirection = direction;
 
 
 
-            // simulate the pull
-            rb.position = startPosition + dragDirection;
+                // simulate the pull
+                rb.position = startPosition + dragDirection;
 
-            float pullRatio = dragDirection.magnitude / maxDistance;
-            Vector3 projectedVelocity = -dragDirection.normalized * forceMultiplier * pullRatio;
-            UpdateTrajectory(transform.position, projectedVelocity);
-        }
+                float pullRatio = dragDirection.magnitude / maxDistance;
+                Vector3 projectedVelocity = -dragDirection.normalized * forceMultiplier * pullRatio;
+                UpdateTrajectory(transform.position, projectedVelocity);
+            }
 
 
 
-        if (Input.GetMouseButtonUp(0) && isDragging)
-        {
-            isDragging = false;
-            lineRenderer.enabled = false;
+            if (Input.GetMouseButtonUp(0) && isDragging)
+            {
+                isDragging = false;
+                lineRenderer.enabled = false;
 
-            float pullRatio = dragDirection.magnitude / maxDistance;
+                float pullRatio = dragDirection.magnitude / maxDistance;
 
-            rb.AddForce(-dragDirection.normalized * forceMultiplier * pullRatio, ForceMode2D.Impulse);
-            rb.gravityScale = 1; // Enable gravity upon release
+                rb.AddForce(-dragDirection.normalized * forceMultiplier * pullRatio, ForceMode2D.Impulse);
+                isFlying = true;
+                rb.gravityScale = 1; // Enable gravity upon release
+            }
         }
     }
     void UpdateTrajectory(Vector3 initialPosition, Vector3 initialVelocity)
