@@ -8,6 +8,7 @@ public class setReferences : MonoBehaviour
     public cameraMovement cameraMovement; 
     worldShift worldShift;
     public hookSpawner hookSpawner;
+    public animationMethods animationMethods;
     void Start()
     {
         worldShift=GetComponent<worldShift>();
@@ -17,6 +18,7 @@ public class setReferences : MonoBehaviour
         slingshot.hookSpawner=hookSpawner;
 
         cameraMovement.followObject=slingshot.gameObject;
+        cameraMovement.animScript=animationMethods;
     }
 
 }

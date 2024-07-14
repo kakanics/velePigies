@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class cameraMovement : MonoBehaviour
 {
-    [HideInInspector] public GameObject followObject;
     [SerializeField] private Vector3 offset;
     [SerializeField] private float smoothSpeed = 0.125f;
     private bool move = false;
     private const float StopThreshold = 0.2f;
-
+    [HideInInspector] public GameObject followObject;
+    [HideInInspector]public animationMethods animScript; 
+    
     public void MoveCamera()
     {
         move = true;
+        animScript.triggerBkgScroll();
     }
 
     void LateUpdate()
@@ -26,6 +28,7 @@ public class cameraMovement : MonoBehaviour
         if (Mathf.Abs(transform.position.y - desiredPosition.y) < StopThreshold)
         {
             move = false;
+            animScript.pauseBkgScroll();
         }
     }
 }
