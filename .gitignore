@@ -70,3 +70,10 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+.vsconfig
+.vscode/settings.json
+ProjectSettings/ShaderGraphSettings.asset
+ProjectSettings/ShaderGraphSettings.asset
+Assets/Backgrounds/Background.jpg.meta
+Assets/postProcess.asset
+Assets/Backgrounds.meta
