@@ -5,7 +5,7 @@ using UnityEngine;
 public class setReferences : MonoBehaviour
 {
     public Slingshot slingshot;
-    public cameraMovement cameraMovement;
+    public cameraMovement cameraMovement; 
     worldShift worldShift;
     public hookSpawner hookSpawner;
     void Start()
