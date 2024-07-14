@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class hookSpawner : MonoBehaviour
 {
-    public GameObject hookPrefab; 
+    public GameObject hookPrefab;  
     public GameObject hookHolder;
     public Vector3[] spawnLocations = new Vector3[3] {new Vector3(-1.5f, 5.5f, 0), new Vector3(0, 5.5f, 0), new Vector3(1.5f, 5.5f, 0)};
     public void spawnHooks()
