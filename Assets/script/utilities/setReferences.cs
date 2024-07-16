@@ -5,20 +5,18 @@ using UnityEngine;
 public class setReferences : MonoBehaviour
 {
     public Slingshot slingshot;
-    public cameraMovement cameraMovement; 
     worldShift worldShift;
     public hookSpawner hookSpawner;
     public animationMethods animationMethods;
     void Start()
     {
         worldShift=GetComponent<worldShift>();
+        worldShift.animScript=animationMethods;
         
         slingshot.worldShift=worldShift;
-        slingshot.cameraFollow=cameraMovement;
         slingshot.hookSpawner=hookSpawner;
+        slingshot.hookController=hookSpawner.gameObject.GetComponent<hookController>();
 
-        cameraMovement.followObject=slingshot.gameObject;
-        cameraMovement.animScript=animationMethods;
     }
 
 }

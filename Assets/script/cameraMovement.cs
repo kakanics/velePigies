@@ -4,31 +4,4 @@ using UnityEngine;
 
 public class cameraMovement : MonoBehaviour
 {
-    [SerializeField] private Vector3 offset;
-    [SerializeField] private float smoothSpeed = 0.125f;
-    private bool move = false;
-    private const float StopThreshold = 0.2f;
-    [HideInInspector] public GameObject followObject;
-    [HideInInspector]public animationMethods animScript; 
-    
-    public void MoveCamera()
-    {
-        move = true;
-        animScript.triggerBkgScroll();
-    }
-
-    void LateUpdate()
-    {
-        if (!move) return;
-
-        Vector3 desiredPosition = new Vector3(transform.position.x, followObject.transform.position.y + offset.y, transform.position.z);
-        Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
-        transform.position = smoothedPosition;
-
-        if (Mathf.Abs(transform.position.y - desiredPosition.y) < StopThreshold)
-        {
-            move = false;
-            animScript.pauseBkgScroll();
-        }
-    }
 }

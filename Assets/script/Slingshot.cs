@@ -18,6 +18,7 @@ public class Slingshot : MonoBehaviour
     [HideInInspector] public cameraMovement cameraFollow;
     [HideInInspector] public hookSpawner hookSpawner;
     [HideInInspector] public worldShift worldShift;
+    [HideInInspector] public hookController hookController;
     void Start()
     {
         startPosition = transform.position;
@@ -32,9 +33,10 @@ public class Slingshot : MonoBehaviour
         if (other.tag == "hook" && rb.velocity.magnitude < hookCatchThreshold && !isDragging) // Check if the player is close to the hook and almost stopped
         {
             catchHook(other.transform.position);
-            cameraFollow.MoveCamera();
-            StartCoroutine(ShiftWorldAfterDelay(0.1f)); // hooks spawned after the world is shifted
+            if(transform.position.y>-2) // shift iff higher hook is caught
+                StartCoroutine(ShiftWorldAfterDelay(0f)); // hooks spawned after the world is shifted
             other.enabled = false;
+            hookController.setHook(other.gameObject);
         }
     }
 
@@ -52,6 +54,7 @@ public class Slingshot : MonoBehaviour
     {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0;
+
         if (!isFlying)
         {
             if (Input.GetMouseButtonDown(0) && mousePosition.x < rb.position.x + dragRegionRadius && mousePosition.x > rb.position.x - dragRegionRadius && mousePosition.y < rb.position.y + dragRegionRadius && mousePosition.y < rb.position.y + dragRegionRadius)
@@ -86,6 +89,7 @@ public class Slingshot : MonoBehaviour
             {
                 isDragging = false;
                 lineRenderer.enabled = false;
+                StartCoroutine(hookController.EnableHookDelay(0.5f));
 
                 float pullRatio = dragDirection.magnitude / maxDistance;
 
