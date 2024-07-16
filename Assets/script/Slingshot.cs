@@ -29,8 +29,7 @@ public class Slingshot : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Triggered");
-        if (other.tag == "hook" && rb.velocity.magnitude < hookCatchThreshold) // Check if the player is close to the hook and almost stopped
+        if (other.tag == "hook" && rb.velocity.magnitude < hookCatchThreshold && !isDragging) // Check if the player is close to the hook and almost stopped
         {
             catchHook(other.transform.position);
             cameraFollow.MoveCamera();
