@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using TMPro;
 
 public class Slingshot : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class Slingshot : MonoBehaviour
     public int trajectoryPoints = 30; // Number of points to display in the trajectory (higher = longer trajectory)
     public float hookCatchThreshold = 0.1f; // Maximum velocity to catch the hook
     private bool isProcessingTrigger = false;
+    public int initialWeight = 100;
+    public TextMeshProUGUI weightText;
     
     // following variables set using setReferences script 
     [HideInInspector] public cameraMovement cameraFollow;
@@ -28,6 +31,9 @@ public class Slingshot : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         lineRenderer = GetComponent<LineRenderer>();
         rb.gravityScale = 0; // Disable gravity initially
+
+        WeightManager.getInstance().playerWeight = initialWeight;
+        weightText.text = initialWeight.ToString();
     }
 
     
