@@ -38,7 +38,7 @@ public class Slingshot : MonoBehaviour
         isProcessingTrigger = true;
     
         Debug.Log("caught");
-        if (other.tag == "hook" && rb.velocity.magnitude < hookCatchThreshold && !isDragging) // Check if the player is close to the hook and almost stopped
+        if (other.gameObject.tag == "hook" && rb.velocity.magnitude < hookCatchThreshold && !isDragging) // Check if the player is close to the hook and almost stopped
         {
             other.enabled = false;
             catchHook(other.transform.position);
@@ -54,7 +54,7 @@ public class Slingshot : MonoBehaviour
     
     IEnumerator ResetTriggerProcessing()
     {
-        yield return new WaitForSeconds(1f); // Adjust the delay as needed
+        yield return new WaitForSeconds(0.5f); // Adjust the delay as needed
         isProcessingTrigger = false;
     }
 
@@ -107,7 +107,7 @@ public class Slingshot : MonoBehaviour
             {
                 isDragging = false;
                 lineRenderer.enabled = false;
-                StartCoroutine(hookController.EnableHookDelay(0.5f));
+                StartCoroutine(hookController.EnableHookDelay(0.3f));
 
                 float pullRatio = dragDirection.magnitude / maxDistance;
 
