@@ -14,30 +14,48 @@ public class Slingshot : MonoBehaviour
     private Vector3 dragDirection;
     public int trajectoryPoints = 30; // Number of points to display in the trajectory (higher = longer trajectory)
     public float hookCatchThreshold = 0.1f; // Maximum velocity to catch the hook
+    private bool isProcessingTrigger = false;
+    
     // following variables set using setReferences script 
     [HideInInspector] public cameraMovement cameraFollow;
     [HideInInspector] public hookSpawner hookSpawner;
     [HideInInspector] public worldShift worldShift;
     [HideInInspector] public hookController hookController;
+    [HideInInspector] public scoreManager scoreManager;
     void Start()
     {
         startPosition = transform.position;
         rb = GetComponent<Rigidbody2D>();
         lineRenderer = GetComponent<LineRenderer>();
         rb.gravityScale = 0; // Disable gravity initially
-        hookSpawner.spawnHooks();
     }
 
+    
     void OnTriggerEnter2D(Collider2D other)
     {
+        if (isProcessingTrigger) return; // Exit if we're already processing a trigger event
+    
+        isProcessingTrigger = true;
+    
+        Debug.Log("caught");
         if (other.tag == "hook" && rb.velocity.magnitude < hookCatchThreshold && !isDragging) // Check if the player is close to the hook and almost stopped
         {
+            other.enabled = false;
             catchHook(other.transform.position);
+            scoreManager.updateScore();
             if(transform.position.y>-2) // shift iff higher hook is caught
                 StartCoroutine(ShiftWorldAfterDelay(0f)); // hooks spawned after the world is shifted
-            other.enabled = false;
             hookController.setHook(other.gameObject);
         }
+    
+        // Reset the flag after a short delay
+        StartCoroutine(ResetTriggerProcessing());
+    }
+    
+    IEnumerator ResetTriggerProcessing()
+    {
+        yield return new WaitForSeconds(1f); // Adjust the delay as needed
+        isProcessingTrigger = false;
     }
 
 
@@ -116,7 +134,7 @@ public class Slingshot : MonoBehaviour
     IEnumerator ShiftWorldAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        worldShift.shiftWorld();
         hookSpawner.spawnHooks();
+        worldShift.shiftWorld();
     }
 }
