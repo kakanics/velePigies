@@ -8,6 +8,7 @@ public class setReferences : MonoBehaviour
     worldShift worldShift;
     public hookSpawner hookSpawner;
     public animationMethods animationMethods;
+    public scoreManager scoreManager;
     void Start()
     {
         worldShift=GetComponent<worldShift>();
@@ -16,7 +17,9 @@ public class setReferences : MonoBehaviour
         slingshot.worldShift=worldShift;
         slingshot.hookSpawner=hookSpawner;
         slingshot.hookController=hookSpawner.gameObject.GetComponent<hookController>();
+        slingshot.scoreManager=scoreManager;
 
+        scoreManager.GetComponent<comboManager>().animScript = animationMethods;
     }
 
 }
