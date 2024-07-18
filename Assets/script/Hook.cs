@@ -10,7 +10,7 @@ public class Hook : MonoBehaviour
     public void setWeight(int _weight)
     {
         weight = _weight;
-        gameObject.GetComponentInChildren<TextMeshProUGUI>().text = weight.ToString();
+        gameObject.GetComponentInChildren<TextMesh>().text = weight.ToString();
     }
     public int getWeight()
     {
