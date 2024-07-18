@@ -18,6 +18,7 @@ public class Slingshot : MonoBehaviour
     private bool isProcessingTrigger = false;
     public int initialWeight = 100;
     public TextMeshProUGUI weightText;
+    public float hookReleaseTime = 0.5f;
     
     // following variables set using setReferences script 
     [HideInInspector] public cameraMovement cameraFollow;
@@ -43,11 +44,10 @@ public class Slingshot : MonoBehaviour
     
         isProcessingTrigger = true;
     
-        Debug.Log("caught");
         if (other.gameObject.tag == "hook" && rb.velocity.magnitude < hookCatchThreshold && !isDragging) // Check if the player is close to the hook and almost stopped
         {
             other.enabled = false;
-            catchHook(other.transform.position);
+            catchHook(other.gameObject);
             scoreManager.updateScore();
             if(transform.position.y>-2) // shift iff higher hook is caught
                 StartCoroutine(ShiftWorldAfterDelay(0f)); // hooks spawned after the world is shifted
@@ -65,13 +65,27 @@ public class Slingshot : MonoBehaviour
     }
 
 
-    void catchHook(Vector3 hookPosition)
+    void catchHook(GameObject hook)
     {
+        Vector3 hookPosition = hook.transform.position;
         rb.velocity = Vector2.zero;
         rb.gravityScale = 0;
         rb.position = hookPosition;
         startPosition.x = hookPosition.x;
         isFlying = false;
+
+        if (hook.GetComponent<Hook>().getWeight() < WeightManager.getInstance().playerWeight)
+        {
+            Debug.Log("Hook Falling");
+            StartCoroutine(releaseHook());
+        }
+    }
+
+    IEnumerator releaseHook()
+    {
+        yield return new WaitForSeconds(hookReleaseTime);
+        isFlying = true;
+        rb.gravityScale = 1;
     }
 
     void Update()

@@ -1193,7 +1193,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 22.8, y: -27.9}
+  m_AnchoredPosition: {x: 22.8, y: -27.899994}
   m_SizeDelta: {x: 604.8, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &529104485
@@ -1906,8 +1906,9 @@ MonoBehaviour:
   dragRegionRadius: 1
   trajectoryPoints: 5
   hookCatchThreshold: 8
-  initialWeight: 80
+  initialWeight: 150
   weightText: {fileID: 1340714225}
+  hookReleaseTime: 0.5
   cameraFollow: {fileID: 0}
   hookSpawner: {fileID: 0}
   worldShift: {fileID: 0}
@@ -2277,6 +2278,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hookPrefab: {fileID: 663108631332924412, guid: 88eba3eb8cab72844a0fcdf092108a2b, type: 3}
   hookHolder: {fileID: 987923949}
+  hookCount: 6
   spawnLocations:
   - {x: -1.5, y: 5.5, z: 0}
   - {x: 0, y: 5.5, z: 0}
