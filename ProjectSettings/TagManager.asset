@@ -6,6 +6,8 @@ TagManager:
   tags:
   - wall
   - hook
+  - power_up
+  - power_down
   layers:
   - Default
   - TransparentFX

@@ -26,6 +26,7 @@ public class Slingshot : MonoBehaviour
     [HideInInspector] public worldShift worldShift;
     [HideInInspector] public hookController hookController;
     [HideInInspector] public scoreManager scoreManager;
+    [HideInInspector] public powerUpSpawner powerUpSpawner;
     void Start()
     {
         startPosition = transform.position;
@@ -40,7 +41,7 @@ public class Slingshot : MonoBehaviour
     
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (isProcessingTrigger) return; // Exit if we're already processing a trigger event
+        //if (isProcessingTrigger) return; // Exit if we're already processing a trigger event
     
         isProcessingTrigger = true;
     
@@ -52,6 +53,18 @@ public class Slingshot : MonoBehaviour
             if(transform.position.y>-2) // shift iff higher hook is caught
                 StartCoroutine(ShiftWorldAfterDelay(0f)); // hooks spawned after the world is shifted
             hookController.setHook(other.gameObject);
+        }
+        else if(other.gameObject.tag == "power_up")
+        {
+            WeightManager.getInstance().increaseWeight(20);
+            weightText.text = WeightManager.getInstance().playerWeight.ToString();
+            Destroy(other.gameObject);
+        }
+        else if(other.gameObject.tag == "power_down")
+        {
+            WeightManager.getInstance().decreaseWeight(20);
+            weightText.text = WeightManager.getInstance().playerWeight.ToString();
+            Destroy(other.gameObject);
         }
     
         // Reset the flag after a short delay
@@ -155,6 +168,7 @@ public class Slingshot : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         hookSpawner.spawnHooks();
+        powerUpSpawner.spawnPowerUps();
         worldShift.shiftWorld();
     }
 }
