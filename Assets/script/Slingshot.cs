@@ -35,7 +35,7 @@ public class Slingshot : MonoBehaviour
         rb.gravityScale = 0; // Disable gravity initially
 
         WeightManager.getInstance().playerWeight = initialWeight;
-        weightText.text = initialWeight.ToString();
+        weightText.text = "Weight: "+ initialWeight.ToString();
     }
 
     
@@ -43,9 +43,9 @@ public class Slingshot : MonoBehaviour
     {
         //if (isProcessingTrigger) return; // Exit if we're already processing a trigger event
     
-        isProcessingTrigger = true;
+        // isProcessingTrigger = true;
     
-        if (other.gameObject.tag == "hook" && rb.velocity.magnitude < hookCatchThreshold && !isDragging) // Check if the player is close to the hook and almost stopped
+        if (other.gameObject.CompareTag("hook")&& rb.velocity.magnitude < hookCatchThreshold && !isDragging) // Check if the player is close to the hook and almost stopped
         {
             other.enabled = false;
             catchHook(other.gameObject);
@@ -54,21 +54,15 @@ public class Slingshot : MonoBehaviour
                 StartCoroutine(ShiftWorldAfterDelay(0f)); // hooks spawned after the world is shifted
             hookController.setHook(other.gameObject);
         }
-        else if(other.gameObject.tag == "power_up")
+        else if(other.gameObject.CompareTag("power"))
         {
-            WeightManager.getInstance().increaseWeight(20);
-            weightText.text = WeightManager.getInstance().playerWeight.ToString();
-            Destroy(other.gameObject);
-        }
-        else if(other.gameObject.tag == "power_down")
-        {
-            WeightManager.getInstance().decreaseWeight(20);
-            weightText.text = WeightManager.getInstance().playerWeight.ToString();
+            WeightManager.getInstance().modifyWeight(other.gameObject.GetComponent<powerupPower>().power);
+            weightText.text = "Weight: "+WeightManager.getInstance().playerWeight.ToString();
             Destroy(other.gameObject);
         }
     
         // Reset the flag after a short delay
-        StartCoroutine(ResetTriggerProcessing());
+        // StartCoroutine(ResetTriggerProcessing());
     }
     
     IEnumerator ResetTriggerProcessing()

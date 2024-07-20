@@ -8,6 +8,7 @@ TagManager:
   - hook
   - power_up
   - power_down
+  - power
   layers:
   - Default
   - TransparentFX

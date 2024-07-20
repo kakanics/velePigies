@@ -19,17 +19,10 @@ public class WeightManager
         return weightManager;
     }
 
-    public void increaseWeight(int weight)
+    public void modifyWeight(int weight)
     {
         playerWeight += weight;
+        playerWeight=playerWeight<0?0:playerWeight;
     }
 
-    public void decreaseWeight(int weight)
-    {
-        playerWeight -= weight;
-        if (playerWeight < 0)
-        {
-            playerWeight = 0;
-        }
-    }
 }

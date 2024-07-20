@@ -5,7 +5,6 @@ using UnityEngine;
 public class powerUpSpawner : MonoBehaviour
 {
     public GameObject powerUpPrefab;
-    public GameObject powerDownPrefab;
     public GameObject powerUpHolder;
     public GameObject hookManager;
     public GameObject player;
@@ -17,10 +16,7 @@ public class powerUpSpawner : MonoBehaviour
         {
             if(Random.Range(0,2) == 1)
             {
-                if (Random.Range(0, 1) == 1)
-                    Instantiate(powerUpPrefab, location, Quaternion.identity, powerUpHolder.transform);
-                else
-                    Instantiate(powerDownPrefab, location, Quaternion.identity, powerUpHolder.transform);
+                Instantiate(powerUpPrefab, location, Quaternion.identity, powerUpHolder.transform);
             }
         }
     }
