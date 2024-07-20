@@ -8,10 +8,21 @@ public class powerUpSpawner : MonoBehaviour
     public GameObject powerUpHolder;
     public GameObject hookManager;
     public GameObject player;
-
+    public Vector3[] spawnLocations = new Vector3[2] {new Vector3(-.75f,5.5f,0), new Vector3(.75f,5.5f,0)};
+    public float spawnInterval = 3;
+    float timer = 3;
+    
+    void Update(){
+        timer -= Time.deltaTime;
+        if(timer<=0)
+        {
+            spawnPowerUps();
+            timer = spawnInterval;
+        }
+    }
     public void spawnPowerUps()
     {
-        List<Vector3> spawnLocations = calculateLocations();
+        // List<Vector3> spawnLocations = calculateLocations();
         foreach (var location in spawnLocations)
         {
             if(Random.Range(0,2) == 1)

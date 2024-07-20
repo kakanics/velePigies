@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3221861990899583803}
   - component: {fileID: 6026267852557133742}
   - component: {fileID: 1829112031192282094}
+  - component: {fileID: 290026651899789432}
   m_Layer: 0
   m_Name: w_increaser
   m_TagString: power
@@ -138,6 +139,33 @@ MonoBehaviour:
   powerUpSprite: {fileID: 21300000, guid: 5af66eebb76b66249b5a4ecf7c2639fc, type: 3}
   powerDownSprite: {fileID: 21300000, guid: 011eb6c4d86550245bc9c15cfb3bdb5b, type: 3}
   showPower: 0
+--- !u!50 &290026651899789432
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4444631329798921063}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0.1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &7231194796431886613
 GameObject:
   m_ObjectHideFlags: 0
