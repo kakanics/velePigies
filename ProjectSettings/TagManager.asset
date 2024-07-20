@@ -6,9 +6,8 @@ TagManager:
   tags:
   - wall
   - hook
-  - power_up
-  - power_down
   - power
+  - deathTrigger
   layers:
   - Default
   - TransparentFX

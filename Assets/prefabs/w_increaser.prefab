@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6026267852557133742}
   - component: {fileID: 1829112031192282094}
   - component: {fileID: 290026651899789432}
+  - component: {fileID: 5887687218749721279}
   m_Layer: 0
   m_Name: w_increaser
   m_TagString: power
@@ -166,6 +167,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &5887687218749721279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4444631329798921063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0aafec3b05215a646bb9cb753aed4c89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  torqueRange: 50
 --- !u!1 &7231194796431886613
 GameObject:
   m_ObjectHideFlags: 0

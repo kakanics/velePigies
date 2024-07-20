@@ -15,7 +15,6 @@ public class Slingshot : MonoBehaviour
     private Vector3 dragDirection;
     public int trajectoryPoints = 30; // Number of points to display in the trajectory (higher = longer trajectory)
     public float hookCatchThreshold = 0.1f; // Maximum velocity to catch the hook
-    private bool isProcessingTrigger = false;
     public int initialWeight = 100;
     public TextMeshProUGUI weightText;
     public float hookReleaseTime = 0.5f;
@@ -26,7 +25,7 @@ public class Slingshot : MonoBehaviour
     [HideInInspector] public worldShift worldShift;
     [HideInInspector] public hookController hookController;
     [HideInInspector] public scoreManager scoreManager;
-    [HideInInspector] public powerUpSpawner powerUpSpawner;
+    [HideInInspector] public deathRoutine deathRoutine;
     void Start()
     {
         startPosition = transform.position;
@@ -41,9 +40,6 @@ public class Slingshot : MonoBehaviour
     
     void OnTriggerEnter2D(Collider2D other)
     {
-        //if (isProcessingTrigger) return; // Exit if we're already processing a trigger event
-    
-        // isProcessingTrigger = true;
     
         if (other.gameObject.CompareTag("hook")&& rb.velocity.magnitude < hookCatchThreshold && !isDragging) // Check if the player is close to the hook and almost stopped
         {
@@ -60,17 +56,12 @@ public class Slingshot : MonoBehaviour
             weightText.text = "Weight: "+WeightManager.getInstance().playerWeight.ToString();
             Destroy(other.gameObject);
         }
+        else if(other.gameObject.CompareTag("deathTrigger"))
+        {
+            deathRoutine.startDeathRoutine();
+        }
     
-        // Reset the flag after a short delay
-        // StartCoroutine(ResetTriggerProcessing());
     }
-    
-    IEnumerator ResetTriggerProcessing()
-    {
-        yield return new WaitForSeconds(0.5f); // Adjust the delay as needed
-        isProcessingTrigger = false;
-    }
-
 
     void catchHook(GameObject hook)
     {
@@ -162,7 +153,6 @@ public class Slingshot : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         hookSpawner.spawnHooks();
-        powerUpSpawner.spawnPowerUps();
         worldShift.shiftWorld();
     }
 }

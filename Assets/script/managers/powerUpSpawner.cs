@@ -11,7 +11,11 @@ public class powerUpSpawner : MonoBehaviour
     public Vector3[] spawnLocations = new Vector3[2] {new Vector3(-.75f,5.5f,0), new Vector3(.75f,5.5f,0)};
     public float spawnInterval = 3;
     float timer = 3;
+    public bool enablePin = true;
     
+    void Start(){
+        this.enabled = enablePin;
+    }
     void Update(){
         timer -= Time.deltaTime;
         if(timer<=0)

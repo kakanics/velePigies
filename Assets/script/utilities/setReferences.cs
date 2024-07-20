@@ -19,7 +19,7 @@ public class setReferences : MonoBehaviour
         slingshot.hookSpawner=hookSpawner;
         slingshot.hookController=hookSpawner.gameObject.GetComponent<hookController>();
         slingshot.scoreManager=scoreManager;
-        slingshot.powerUpSpawner=powerUpSpawner;
+        slingshot.deathRoutine = GetComponent<deathRoutine>();
 
         scoreManager.GetComponent<comboManager>().animScript = animationMethods;
     }
