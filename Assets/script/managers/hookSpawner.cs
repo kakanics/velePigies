@@ -18,6 +18,7 @@ public class hookSpawner : MonoBehaviour
         spawnedHooks = new List<GameObject>();
         foreach(Vector3 location in spawnLocations)
         {
+            if(IsObjectAtPosition(location)){continue;}
             if(UnityEngine.Random.Range(0,3)==0){
                GameObject hook = Instantiate(hookPrefab, location, Quaternion.identity, hookHolder.transform);
                 setHookWeight(hook, calculateWeight());
@@ -57,5 +58,11 @@ public class hookSpawner : MonoBehaviour
                 return false;
         }
         return true;
+    }
+    bool IsObjectAtPosition(Vector2 position)
+    {
+        // Check if there are any colliders at the specified position
+        Collider2D collider = Physics2D.OverlapPoint(position);
+        return collider != null;
     }
 }
