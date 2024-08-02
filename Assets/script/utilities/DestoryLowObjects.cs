@@ -6,10 +6,26 @@ public class DestoryLowObjects : MonoBehaviour
 {
     public int y;
 
-    void Update()
+    public float checkInterval = 2f; // Interval in seconds to check the position
+
+    void Start()
     {
-        if(transform.position.y<y){
-            Destroy(gameObject);
+        StartCoroutine(CheckPositionPeriodically());
+    }
+
+    // Update m position hr frame pe check hogi, is script m time ka msla ni h late ho 
+    //skta h lekin performance honi chahiye is lie hr kch seconds baad check kreinge position
+    IEnumerator CheckPositionPeriodically()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(checkInterval);
+
+            if (transform.position.y < y)
+            {
+                Destroy(gameObject);
+                yield break; // Exit the coroutine if the object is destroyed
+            }
         }
     }
 }
