@@ -45,6 +45,7 @@ public class Slingshot : MonoBehaviour
         if (other.gameObject.CompareTag("hook")&& rb.velocity.magnitude < hookCatchThreshold && !isDragging) // Check if the player is close to the hook and almost stopped
         {
             other.enabled = false;
+            soundMnaager.instance.PlaySound(SoundName.CATCH);
             catchHook(other.gameObject);
             scoreManager.updateScore();
             if(transform.position.y>-2) // shift iff higher hook is caught
@@ -57,12 +58,19 @@ public class Slingshot : MonoBehaviour
             WeightManager.getInstance().modifyWeight(other.gameObject.GetComponent<powerupPower>().power);
             weightText.text = "Weight: "+WeightManager.getInstance().playerWeight.ToString();
             Destroy(other.gameObject);
+            soundMnaager.instance.PlaySound(SoundName.POWERUP);
         }
         else if(other.gameObject.CompareTag("deathTrigger"))
         {
+            soundMnaager.instance.PlaySound(SoundName.DEATH);
             deathRoutine.startDeathRoutine();
         }
-    
+    }
+    private void OnCollisionEnter2D(Collision2D other) {
+        if(other.gameObject.CompareTag("wall")){
+            soundMnaager.instance.PlaySound(SoundName.HIT);
+            Debug.Log("hit wall");
+        }
     }
 
     void catchHook(GameObject hook)
@@ -125,6 +133,7 @@ public class Slingshot : MonoBehaviour
 
             if (Input.GetMouseButtonUp(0) && isDragging)
             {
+                soundMnaager.instance.PlaySound(SoundName.THROW);
                 isDragging = false;
                 lineRenderer.enabled = false;
                 StartCoroutine(hookController.EnableHookDelay(0.3f));
