@@ -26,6 +26,7 @@ public class Slingshot : MonoBehaviour
     [HideInInspector] public hookController hookController;
     [HideInInspector] public scoreManager scoreManager;
     [HideInInspector] public deathRoutine deathRoutine;
+    [HideInInspector] public playParticleSystem particleSystemScript;
     void Start()
     {
         startPosition = transform.position;
@@ -52,6 +53,7 @@ public class Slingshot : MonoBehaviour
         }
         else if(other.gameObject.CompareTag("power"))
         {
+            particleSystemScript.PlayParticleSystemAtPosition(transform.position);
             WeightManager.getInstance().modifyWeight(other.gameObject.GetComponent<powerupPower>().power);
             weightText.text = "Weight: "+WeightManager.getInstance().playerWeight.ToString();
             Destroy(other.gameObject);
