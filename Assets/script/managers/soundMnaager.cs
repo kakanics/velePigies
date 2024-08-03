@@ -7,7 +7,10 @@ public enum SoundName
     DEATH,
     CATCH,
     THROW,
-    HIT
+    HIT,
+    RELEASE,
+    POWERDOWN,
+    ELEDEATH
 }
 
 public class soundMnaager : MonoBehaviour

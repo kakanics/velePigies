@@ -63,6 +63,7 @@ public class Slingshot : MonoBehaviour
         else if(other.gameObject.CompareTag("deathTrigger"))
         {
             soundMnaager.instance.PlaySound(SoundName.DEATH);
+            soundMnaager.instance.PlaySound(SoundName.ELEDEATH);
             deathRoutine.startDeathRoutine();
         }
     }
@@ -134,6 +135,7 @@ public class Slingshot : MonoBehaviour
             if (Input.GetMouseButtonUp(0) && isDragging)
             {
                 soundMnaager.instance.PlaySound(SoundName.THROW);
+                soundMnaager.instance.PlaySound(SoundName.RELEASE);
                 isDragging = false;
                 lineRenderer.enabled = false;
                 StartCoroutine(hookController.EnableHookDelay(0.3f));

@@ -443,7 +443,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 85fffc80934853045bd05fc57bda458b, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.249
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -711,7 +711,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.3, y: 0.8}
   m_AnchorMax: {x: 0.8, y: 0.9}
-  m_AnchoredPosition: {x: -68.04501, y: -13.599976}
+  m_AnchoredPosition: {x: -68.045044, y: -13.600098}
   m_SizeDelta: {x: 119.28999, y: -10.23999}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &252667167
@@ -947,7 +947,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.4, y: 0}
   m_AnchorMax: {x: 0.6, y: 1}
-  m_AnchoredPosition: {x: 9.349998, y: 163.3999}
+  m_AnchoredPosition: {x: 9.349976, y: 163.39941}
   m_SizeDelta: {x: 9.15, y: -290.2}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &383701006
@@ -1627,7 +1627,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 725fe0f200175354a84469f4257891aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioClips: []
+  audioClips:
+  - {fileID: 8300000, guid: b9aae036022d35d42a3bb88430077419, type: 3}
+  - {fileID: 8300000, guid: 15097b6dd18ff06469641d2c2e8e2d5b, type: 3}
+  - {fileID: 8300000, guid: c06f6e265bb1fbd4a921b111a00139d2, type: 3}
+  - {fileID: 8300000, guid: b9054959870da9443b0717d976adb273, type: 3}
+  - {fileID: 8300000, guid: bd38668cee71891479e8ed36d9efba0c, type: 3}
 --- !u!4 &523166831
 Transform:
   m_ObjectHideFlags: 0
@@ -1677,7 +1682,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 22.8, y: -27.899994}
+  m_AnchoredPosition: {x: 22.8, y: -27.900024}
   m_SizeDelta: {x: 604.8, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &529104485
@@ -2912,7 +2917,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3801003507722517250, guid: 88eba3eb8cab72844a0fcdf092108a2b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3801003507722517250, guid: 88eba3eb8cab72844a0fcdf092108a2b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2951,8 +2956,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88eba3eb8cab72844a0fcdf092108a2b, type: 3}
---- !u!4 &1115521558 stripped
-Transform:
+--- !u!224 &1115521558 stripped
+RectTransform:
   m_CorrespondingSourceObject: {fileID: 3801003507722517250, guid: 88eba3eb8cab72844a0fcdf092108a2b, type: 3}
   m_PrefabInstance: {fileID: 1115521557}
   m_PrefabAsset: {fileID: 0}
@@ -3057,7 +3062,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -13.099976, y: 55.400024}
+  m_AnchoredPosition: {x: -13.100098, y: 55.399902}
   m_SizeDelta: {x: -117.5, y: -1154.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1286487621
@@ -3132,7 +3137,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.4}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 29.169983, y: 78.3999}
+  m_AnchoredPosition: {x: 29.169922, y: 78.3999}
   m_SizeDelta: {x: -52.07, y: -11.699951}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1292384300
@@ -3294,8 +3299,8 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1561536754}
   m_CullTransparentMesh: 1
---- !u!4 &1582086211 stripped
-Transform:
+--- !u!224 &1582086211 stripped
+RectTransform:
   m_CorrespondingSourceObject: {fileID: 3801003507722517250, guid: 88eba3eb8cab72844a0fcdf092108a2b, type: 3}
   m_PrefabInstance: {fileID: 5350720656412497381}
   m_PrefabAsset: {fileID: 0}
@@ -3649,11 +3654,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3801003507722517250, guid: 88eba3eb8cab72844a0fcdf092108a2b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.31
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3801003507722517250, guid: 88eba3eb8cab72844a0fcdf092108a2b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3801003507722517250, guid: 88eba3eb8cab72844a0fcdf092108a2b, type: 3}
       propertyPath: m_LocalPosition.z
