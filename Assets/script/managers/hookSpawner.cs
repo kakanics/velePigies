@@ -9,9 +9,9 @@ public class hookSpawner : MonoBehaviour
     public GameObject hookHolder;
     public int hookCount = 6;
     private int weightOffset = 50;
-    public Vector3[] spawnLocations = new Vector3[] {new Vector3(-1.5f, 5.5f, 0), new Vector3(0, 5.5f, 0), new Vector3(1.5f, 5.5f, 0), new Vector3(-1.25f, 10.0f, 0), new Vector3(0, 10.0f, 0), new Vector3(1.5f, 12.5f, 0)};
+    public Vector3[] spawnLocations = new Vector3[] {new Vector3(-1.5f, 5.5f, 0), new Vector3(0, 5.5f, 0), new Vector3(1.5f, 5.5f, 0), new Vector3(-1f, 5.5f, 0), new Vector3(1f, 5.5f, 0)};
     [HideInInspector] public List<GameObject> spawnedHooks;
-
+    [HideInInspector] public scoreManager scoreManager;
     public void spawnHooks()
     {
         bool b = false;
@@ -19,7 +19,19 @@ public class hookSpawner : MonoBehaviour
         foreach(Vector3 location in spawnLocations)
         {
             if(IsObjectAtPosition(location)){continue;}
-            if(UnityEngine.Random.Range(0,3)==0){
+            float score = scoreManager.score;
+            float chance;
+            if (score <= 1000)
+            {
+                // Linearly interpolate from 33% to 5%
+                chance = Mathf.Lerp(0.33f, 0.05f, score / 1000f);
+            }
+            else
+            {
+                // After 1000, the chance remains at 5%
+                chance = 0.05f;
+            }
+            if(UnityEngine.Random.value<chance){
                GameObject hook = Instantiate(hookPrefab, location, Quaternion.identity, hookHolder.transform);
                 setHookWeight(hook, calculateWeight());
                b=true;

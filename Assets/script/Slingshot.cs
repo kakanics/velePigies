@@ -7,6 +7,7 @@ public class Slingshot : MonoBehaviour
     private LineRenderer lineRenderer;
     public float maxDistance = 1f; // Maximum distance the slingshot can be pulled
     public float forceMultiplier = 10f;
+    public float torque = 5f;
     private Vector3 startPosition;
     private bool isDragging = false;
     private bool isFlying = false;
@@ -18,9 +19,9 @@ public class Slingshot : MonoBehaviour
     public int initialWeight = 100;
     public TextMeshProUGUI weightText;
     public float hookReleaseTime = 0.5f;
-    
     // following variables set using setReferences script 
     [HideInInspector] public cameraMovement cameraFollow;
+    [HideInInspector] public animationMethods animMethods;
     [HideInInspector] public hookSpawner hookSpawner;
     [HideInInspector] public worldShift worldShift;
     [HideInInspector] public hookController hookController;
@@ -33,9 +34,10 @@ public class Slingshot : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         lineRenderer = GetComponent<LineRenderer>();
         rb.gravityScale = 0; // Disable gravity initially
+        rb.velocity=Vector2.zero;
 
         WeightManager.getInstance().playerWeight = initialWeight;
-        weightText.text = "Weight: "+ initialWeight.ToString();
+        weightText.text = initialWeight.ToString();
     }
 
     
@@ -55,8 +57,10 @@ public class Slingshot : MonoBehaviour
         else if(other.gameObject.CompareTag("power"))
         {
             particleSystemScript.PlayParticleSystemAtPosition(transform.position);
-            WeightManager.getInstance().modifyWeight(other.gameObject.GetComponent<powerupPower>().power);
-            weightText.text = "Weight: "+WeightManager.getInstance().playerWeight.ToString();
+            var w = other.gameObject.GetComponent<powerupPower>().power;
+            animMethods.modifyImage(w);
+            WeightManager.getInstance().modifyWeight(w);
+            weightText.text = WeightManager.getInstance().playerWeight.ToString();
             Destroy(other.gameObject);
             soundMnaager.instance.PlaySound(SoundName.POWERUP);
         }
@@ -102,6 +106,7 @@ public class Slingshot : MonoBehaviour
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0;
 
+
         if (!isFlying)
         {
             if (Input.GetMouseButtonDown(0) && mousePosition.x < rb.position.x + dragRegionRadius && mousePosition.x > rb.position.x - dragRegionRadius && mousePosition.y < rb.position.y + dragRegionRadius && mousePosition.y < rb.position.y + dragRegionRadius)
@@ -146,6 +151,9 @@ public class Slingshot : MonoBehaviour
                 isFlying = true;
                 rb.gravityScale = 1; // Enable gravity upon release
             }
+        }else{
+            float RotDirection = Mathf.Sign(rb.velocity.x);
+            rb.AddTorque(RotDirection * torque);
         }
     }
     void UpdateTrajectory(Vector3 initialPosition, Vector3 initialVelocity)

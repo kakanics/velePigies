@@ -6,7 +6,11 @@ public class animationMethods : MonoBehaviour
 {
     public Animator bkg;
     public Animator comboBox;
-
+    [Header("Pig Animations")]
+    public Animator smokeAnim;
+    public GameObject pig1, pig2, pig3; // pig 3 = king, pig 2 = aba, pig 1 = small wala
+    public int thresholdKing = 200, thresholdBig = 100;
+    public CircleCollider2D playerCol2D;
     public void triggerBkgScroll(){
         bkg.SetTrigger("animStart");
     }
@@ -18,6 +22,39 @@ public class animationMethods : MonoBehaviour
     }
     public void ComboBoxDisappearTrigger(){
         comboBox.SetTrigger("disappear");
+    }
+    public void modifyImage(int weight)
+    {
+        int oldWeight = WeightManager.getInstance().playerWeight;
+        int newWeight = oldWeight+weight;
+        
+        if (newWeight >= thresholdKing && oldWeight<thresholdKing){
+            pig2.SetActive(false);
+            pig3.SetActive(true);
+            smokeAnim.SetTrigger("puff");
+        } 
+        else if (newWeight >= thresholdBig && (weight<thresholdBig || weight>thresholdKing)){
+            pig1.SetActive(false);
+            pig2.SetActive(true);
+            pig3.SetActive(false);
+            smokeAnim.SetTrigger("puff");
+        } else if (newWeight < thresholdBig && oldWeight>thresholdBig){
+            pig2.SetActive(false);
+            pig1.SetActive(true);
+            smokeAnim.SetTrigger("puff");
+        }
+        if (newWeight<thresholdBig){
+            //0.4 to 0.7 scale and 0.28 to 0.5 radius for weight 40 to 100
+            newWeight = newWeight<40?40:newWeight>thresholdBig?thresholdBig:newWeight;
+
+            // Calculate scale and radius using linear interpolation
+            float scale = Mathf.Lerp(0.4f, 0.7f, (newWeight - 40) / 60f);
+            float radius = Mathf.Lerp(0.28f, 0.5f, (newWeight - 40) / 60f);
+
+            // Apply the calculated scale and radius
+            pig1.transform.localScale = new Vector3(scale, scale, scale);
+            playerCol2D.radius = radius;
+        }
     }
 
 }

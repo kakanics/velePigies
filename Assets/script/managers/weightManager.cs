@@ -6,7 +6,7 @@ public class WeightManager
 {
     public static WeightManager weightManager;
     public int playerWeight = 200;
-
+    
     private WeightManager() { 
     }
     public static WeightManager getInstance()
@@ -24,5 +24,7 @@ public class WeightManager
         playerWeight += weight;
         playerWeight=playerWeight<0?0:playerWeight;
     }
+    
+
 
 }

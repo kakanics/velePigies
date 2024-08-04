@@ -5,7 +5,6 @@ using UnityEngine;
 public class playParticleSystem : MonoBehaviour
 {
     public ParticleSystem particleSystemPrefab;
-    public ParticleSystem particleSystemPrefab2;
     public void PlayParticleSystemAtPosition(Vector3 position)
     {
         if (particleSystemPrefab != null)

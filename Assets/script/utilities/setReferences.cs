@@ -22,7 +22,9 @@ public class setReferences : MonoBehaviour
         slingshot.scoreManager=scoreManager;
         slingshot.deathRoutine = GetComponent<deathRoutine>();
         slingshot.particleSystemScript = particleSystemScript;
+        slingshot.animMethods = animationMethods;
 
+        hookSpawner.scoreManager=scoreManager;
         scoreManager.GetComponent<comboManager>().animScript = animationMethods;
     }
 

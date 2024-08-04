@@ -17,6 +17,6 @@ public class scoreManager : MonoBehaviour
     {
         comboScript.comboIncrement();
         score += 1+comboScript.getComboVal()*comboScript.comboMultiplier;
-        ScoreText.text = "Score: " + score.ToString();
+        ScoreText.text = score.ToString();
     }
 }
