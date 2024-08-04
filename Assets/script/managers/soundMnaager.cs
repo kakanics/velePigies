@@ -10,7 +10,11 @@ public enum SoundName
     HIT,
     RELEASE,
     POWERDOWN,
-    ELEDEATH
+    ELEDEATH,
+    CRACK,
+    WOOSH,
+    CLICK,
+    CLICK_ALT
 }
 
 public class soundMnaager : MonoBehaviour

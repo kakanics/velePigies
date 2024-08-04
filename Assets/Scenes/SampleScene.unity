@@ -582,9 +582,8 @@ MonoBehaviour:
   pig1: {fileID: 1604664359}
   pig2: {fileID: 302097599}
   pig3: {fileID: 2124161072}
-  thresholdKing: 200
-  thresholdBig: 100
-  thresholdSmall: 100
+  thresholdKing: 100
+  thresholdBig: 60
   playerCol2D: {fileID: 1115470972}
 --- !u!4 &162157237
 Transform:
@@ -615,7 +614,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 0.249
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1416,6 +1415,8 @@ MonoBehaviour:
   spawnLocations:
   - {x: -0.75, y: 5.5, z: 0}
   - {x: 0.75, y: 5.5, z: 0}
+  - {x: -1.5, y: 6.4, z: 0}
+  - {x: 1.5, y: 6, z: 0}
   spawnInterval: 3
   enablePin: 1
 --- !u!4 &384605084
@@ -1922,7 +1923,13 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 15097b6dd18ff06469641d2c2e8e2d5b, type: 3}
   - {fileID: 8300000, guid: c06f6e265bb1fbd4a921b111a00139d2, type: 3}
   - {fileID: 8300000, guid: b9054959870da9443b0717d976adb273, type: 3}
-  - {fileID: 8300000, guid: bd38668cee71891479e8ed36d9efba0c, type: 3}
+  - {fileID: 8300000, guid: 0d0d4967038a7304fab8dcda10bd8ccc, type: 3}
+  - {fileID: 8300000, guid: 68d1d00922170534a89e1ad6ec416021, type: 3}
+  - {fileID: 8300000, guid: e5b1f262cda67c045b65cdf488adb52d, type: 3}
+  - {fileID: 8300000, guid: 41dd5f759c26ef94c933656c1ada1a76, type: 3}
+  - {fileID: 8300000, guid: 6804290f2cf30894d9199918d11d13c4, type: 3}
+  - {fileID: 8300000, guid: eab8586481addf44992c9c84c0683066, type: 3}
+  - {fileID: 8300000, guid: e1f76e62a48366c4c905f703008d5aa9, type: 3}
 --- !u!4 &523166831
 Transform:
   m_ObjectHideFlags: 0
@@ -2789,11 +2796,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxDistance: 1
   forceMultiplier: 13
-  torque: 1
+  torque: 0.5
   dragRegionRadius: 1
   trajectoryPoints: 5
   hookCatchThreshold: 12
-  initialWeight: 99
+  initialWeight: 30
   weightText: {fileID: 529104485}
   hookReleaseTime: 0.5
   cameraFollow: {fileID: 0}

@@ -11,7 +11,7 @@ public class powerupPower : MonoBehaviour
     void Start()
     {
         while(power==0)
-            power = Random.Range(-10,11);
+            power = Random.Range(-10,20);
         GetComponent<SpriteRenderer>().sprite=(power>0)?powerUpSprite:powerDownSprite;
         if(showPower){
             var x = gameObject.GetComponentInChildren<TextMesh>();

@@ -58,7 +58,7 @@ public class hookSpawner : MonoBehaviour
         int playerWeight = WeightManager.getInstance().playerWeight;
         int lowerBound = playerWeight - weightOffset;
         lowerBound = lowerBound < 0 ? 0 : lowerBound; //Prevent weight being less than zero
-        int upperBound = playerWeight + weightOffset;
+        int upperBound = playerWeight + weightOffset + 5;
         return UnityEngine.Random.Range(lowerBound, upperBound);
     }
 
