@@ -584,7 +584,6 @@ MonoBehaviour:
   pig3: {fileID: 2124161072}
   thresholdKing: 200
   thresholdBig: 100
-  thresholdSmall: 100
   playerCol2D: {fileID: 1115470972}
 --- !u!4 &162157237
 Transform:
