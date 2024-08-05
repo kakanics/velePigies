@@ -160,6 +160,8 @@ MonoBehaviour:
   CreditsAnimator: {fileID: 252078395}
   soundToggleButton: {fileID: 1116006716}
   audioListener: {fileID: 1549341019}
+  lastPress: 0
+  minTimeBetweenPressBooklet: 0.5
 --- !u!4 &2880906
 Transform:
   m_ObjectHideFlags: 0
