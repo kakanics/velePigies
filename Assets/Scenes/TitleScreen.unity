@@ -154,10 +154,12 @@ MonoBehaviour:
   BookletPanel: {fileID: 2054014261}
   SettingsPanel: {fileID: 106331677}
   CreditsPanel: {fileID: 252078391}
+  SoundManager: {fileID: 986300924}
   BookletAnimator: {fileID: 2054014263}
   SettingsAnimator: {fileID: 106331681}
   CreditsAnimator: {fileID: 252078395}
   soundToggleButton: {fileID: 1116006716}
+  audioListener: {fileID: 1549341019}
 --- !u!4 &2880906
 Transform:
   m_ObjectHideFlags: 0
@@ -2109,7 +2111,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 725fe0f200175354a84469f4257891aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioClips: []
+  audioClips:
+  - {fileID: 8300000, guid: fef8ea1458cda664da6bbbd2952eac31, type: 3}
 --- !u!4 &986300926
 Transform:
   m_ObjectHideFlags: 0
