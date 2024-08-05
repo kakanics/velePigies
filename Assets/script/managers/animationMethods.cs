@@ -9,6 +9,7 @@ public class animationMethods : MonoBehaviour
     [Header("Pig Animations")]
     public Animator smokeAnim;
     public GameObject pig1, pig2, pig3; // pig 3 = king, pig 2 = aba, pig 1 = small wala
+    public Animator pigAnimator, abaAnimator, kingAnimator;
     public int thresholdKing = 100, thresholdBig = 60;
     public CircleCollider2D playerCol2D;
     public void triggerBkgScroll(){
@@ -56,5 +57,9 @@ public class animationMethods : MonoBehaviour
             playerCol2D.radius = radius;
         }
     }
-
+    public void hurtPig() {
+        pigAnimator.SetTrigger("hurt");
+        abaAnimator.SetTrigger("hurt");
+        kingAnimator.SetTrigger("hurt");
+    }
 }

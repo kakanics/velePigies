@@ -582,6 +582,9 @@ MonoBehaviour:
   pig1: {fileID: 1604664359}
   pig2: {fileID: 302097599}
   pig3: {fileID: 2124161072}
+  pigAnimator: {fileID: 1604664361}
+  abaAnimator: {fileID: 302097601}
+  kingAnimator: {fileID: 2124161074}
   thresholdKing: 100
   thresholdBig: 60
   playerCol2D: {fileID: 1115470972}
