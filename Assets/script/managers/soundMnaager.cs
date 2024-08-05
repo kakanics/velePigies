@@ -14,7 +14,8 @@ public enum SoundName
     CRACK,
     WOOSH,
     CLICK,
-    CLICK_ALT
+    CLICK_ALT,
+    SLIDE
 }
 
 public class soundMnaager : MonoBehaviour
