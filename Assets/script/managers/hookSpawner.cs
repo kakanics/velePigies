@@ -16,9 +16,10 @@ public class hookSpawner : MonoBehaviour
     {
         bool b = false;
         spawnedHooks = new List<GameObject>();
-        foreach(Vector3 location in spawnLocations)
+        foreach(Vector3 locationa in spawnLocations)
         {
-            if(IsObjectAtPosition(location)){continue;}
+            Vector3 location;
+            if(IsObjectAtPosition(locationa)){location=new Vector3(locationa.x, locationa.y+1, locationa.z);}else{location=locationa;}
             float score = scoreManager.score;
             float chance;
             if (score <= 1000)

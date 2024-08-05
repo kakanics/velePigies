@@ -75,7 +75,7 @@ public class Slingshot : MonoBehaviour
         }
     }
     private void OnCollisionEnter2D(Collision2D other) {
-        if(other.gameObject.CompareTag("wall")){
+        if(other.gameObject.CompareTag("wall") && isFlying){
             soundMnaager.instance.PlaySound(SoundName.HIT);
             animMethods.hurtPig();
         }
