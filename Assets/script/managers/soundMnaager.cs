@@ -20,6 +20,7 @@ public enum SoundName
 
 public class soundMnaager : MonoBehaviour
 {
+    float clickLastPlayed = 0;
     public static soundMnaager instance;
     public List<AudioClip> audioClips;
     private Dictionary<SoundName, AudioClip> audioClipDictionary;
@@ -66,6 +67,14 @@ public class soundMnaager : MonoBehaviour
     {
         if (audioClipDictionary.TryGetValue(soundName, out var clip))
         {
+            if(soundName == SoundName.CLICK || soundName == SoundName.CLICK_ALT)
+            {
+                if(Time.time - clickLastPlayed < 0.1f)
+                {
+                    return;
+                }
+                clickLastPlayed = Time.time;
+            }
             audioSource.PlayOneShot(clip);
         }
         else

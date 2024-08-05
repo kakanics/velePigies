@@ -50,7 +50,7 @@ public class hookSpawner : MonoBehaviour
         if (!b){
             spawnHooks();
         }
-        }catch(exception e){SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);}
+        }catch(Exception e){SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);}
     }
 
     private void setHookWeight(GameObject hook, int weight)

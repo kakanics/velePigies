@@ -38,7 +38,7 @@ public class MainMenuButtons : MonoBehaviour
         soundToggleButton.colors = cb;}
     public void BookletNext(){int pg = BookletAnimator.GetInteger("Page")+1;soundMnaager.instance.PlaySound(SoundName.CLICK);if(pg==4)pg=3;BookletAnimator.SetInteger("Page", pg);}
     public void BookletPrevious(){int pf = BookletAnimator.GetInteger("Page")-1;if(pf==0){return;};soundMnaager.instance.PlaySound(SoundName.CLICK);BookletAnimator.SetInteger("Page", pf);}
-    public void _exitCredits(){CreditsPanel.SetActive(false);soundMnaager.instance.PlaySound(SoundName.CLICK);}
-    public void _exitSettings(){SettingsPanel.SetActive(false);soundMnaager.instance.PlaySound(SoundName.CLICK);}
-    public void _exitBooklet(){BookletPanel.SetActive(false);soundMnaager.instance.PlaySound(SoundName.CLICK);}
+    public void _exitCredits(){CreditsPanel.SetActive(false);}
+    public void _exitSettings(){SettingsPanel.SetActive(false);}
+    public void _exitBooklet(){BookletPanel.SetActive(false);}
 }
