@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class hookSpawner : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class hookSpawner : MonoBehaviour
     [HideInInspector] public scoreManager scoreManager;
     public void spawnHooks()
     {
+        try{
+
         bool b = false;
         spawnedHooks = new List<GameObject>();
         foreach(Vector3 locationa in spawnLocations)
@@ -47,6 +50,7 @@ public class hookSpawner : MonoBehaviour
         if (!b){
             spawnHooks();
         }
+        }catch(exception e){SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);}
     }
 
     private void setHookWeight(GameObject hook, int weight)
