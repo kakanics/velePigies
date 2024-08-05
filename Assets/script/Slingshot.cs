@@ -30,13 +30,16 @@ public class Slingshot : MonoBehaviour
     [HideInInspector] public playParticleSystem particleSystemScript;
     void Start()
     {
+        Application.targetFrameRate = 60;
+
         startPosition = transform.position;
         rb = GetComponent<Rigidbody2D>();
         lineRenderer = GetComponent<LineRenderer>();
         rb.gravityScale = 0; // Disable gravity initially
         rb.velocity=Vector2.zero;
-
+    
         WeightManager.getInstance().playerWeight = initialWeight;
+        animMethods.modifyImage(0);
         weightText.text = initialWeight.ToString();
     }
 
@@ -74,7 +77,6 @@ public class Slingshot : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D other) {
         if(other.gameObject.CompareTag("wall")){
             soundMnaager.instance.PlaySound(SoundName.HIT);
-            Debug.Log("hit wall");
         }
     }
 
@@ -89,7 +91,6 @@ public class Slingshot : MonoBehaviour
 
         if (hook.GetComponent<Hook>().getWeight() < WeightManager.getInstance().playerWeight)
         {
-            Debug.Log("Hook Falling");
             StartCoroutine(releaseHook());
         }
     }
@@ -98,6 +99,7 @@ public class Slingshot : MonoBehaviour
     {
         yield return new WaitForSeconds(hookReleaseTime);
         isFlying = true;
+        soundMnaager.instance.PlaySound(SoundName.CRACK);
         rb.gravityScale = 1;
     }
 
@@ -140,7 +142,6 @@ public class Slingshot : MonoBehaviour
             if (Input.GetMouseButtonUp(0) && isDragging)
             {
                 soundMnaager.instance.PlaySound(SoundName.THROW);
-                soundMnaager.instance.PlaySound(SoundName.RELEASE);
                 isDragging = false;
                 lineRenderer.enabled = false;
                 StartCoroutine(hookController.EnableHookDelay(0.3f));

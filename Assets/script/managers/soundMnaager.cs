@@ -11,7 +11,10 @@ public enum SoundName
     RELEASE,
     POWERDOWN,
     ELEDEATH,
+    CRACK,
+    WOOSH,
     CLICK,
+    CLICK_ALT,
     SLIDE
 }
 

@@ -8,7 +8,7 @@ public class powerUpSpawner : MonoBehaviour
     public GameObject powerUpHolder;
     public GameObject hookManager;
     public GameObject player;
-    public Vector3[] spawnLocations = new Vector3[2] {new Vector3(-.75f,5.5f,0), new Vector3(.75f,5.5f,0)};
+    public Vector3[] spawnLocations = new Vector3[4] {new Vector3(-.75f,5.5f,0), new Vector3(.75f,5.5f,0), new Vector3(-1.5f,5.5f,0), new Vector3(1.5f,5.5f,0)};
     public float spawnInterval = 3;
     float timer = 3;
     public bool enablePin = true;
@@ -29,7 +29,7 @@ public class powerUpSpawner : MonoBehaviour
         // List<Vector3> spawnLocations = calculateLocations();
         foreach (var location in spawnLocations)
         {
-            if(Random.Range(0,2) == 1)
+            if(Random.Range(0,3) == 1)
             {
                 Instantiate(powerUpPrefab, location, Quaternion.identity, powerUpHolder.transform);
             }
