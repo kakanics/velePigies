@@ -11,7 +11,7 @@ public class MainMenuButtons : MonoBehaviour
     public Button soundToggleButton; // Reference to the button
     public AudioListener audioListener;
     void Start(){
-        int x = PlayerPrefs.GetInt("Sound"); 
+        int x = PlayerPrefs.GetInt("Sound", 0); 
         audioListener.enabled = x == 0;
         Color newColor = x == 1 ? Color.red : Color.white;
         ColorBlock cb = soundToggleButton.colors;

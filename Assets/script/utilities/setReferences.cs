@@ -27,7 +27,7 @@ public class setReferences : MonoBehaviour
 
         hookSpawner.scoreManager=scoreManager;
         scoreManager.GetComponent<comboManager>().animScript = animationMethods;
-        listener.enabled = PlayerPrefs.GetInt("Sound") == 0;
+        listener.enabled = PlayerPrefs.GetInt("Sound", 0) == 0;
     }
 
 }
