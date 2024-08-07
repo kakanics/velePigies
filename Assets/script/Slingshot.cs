@@ -11,6 +11,7 @@ public class Slingshot : MonoBehaviour
     private Vector3 startPosition;
     private bool isDragging = false;
     private bool isFlying = false;
+    public bool isWorldShifting = false;
     public float dragRegionRadius = 0.1f;
     private Rigidbody2D rb;
     private Vector3 dragDirection;
@@ -36,28 +37,31 @@ public class Slingshot : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         lineRenderer = GetComponent<LineRenderer>();
         rb.gravityScale = 0; // Disable gravity initially
-        rb.velocity=Vector2.zero;
-    
+        rb.velocity = Vector2.zero;
+
         WeightManager.getInstance().playerWeight = initialWeight;
         animMethods.modifyImage(0);
         weightText.text = initialWeight.ToString();
     }
 
-    
+
     void OnTriggerEnter2D(Collider2D other)
     {
-    
-        if (other.gameObject.CompareTag("hook")&& rb.velocity.magnitude < hookCatchThreshold && !isDragging) // Check if the player is close to the hook and almost stopped
+
+        if (other.gameObject.CompareTag("hook") && rb.velocity.magnitude < hookCatchThreshold && !isDragging) // Check if the player is close to the hook and almost stopped
         {
             other.enabled = false;
             soundMnaager.instance.PlaySound(SoundName.CATCH);
             catchHook(other.gameObject);
             scoreManager.updateScore();
-            if(transform.position.y>-2) // shift iff higher hook is caught
+            if (transform.position.y > -2) // shift iff higher hook is caught
+            {
+                isWorldShifting = true;
                 StartCoroutine(ShiftWorldAfterDelay(0f)); // hooks spawned after the world is shifted
+            }
             hookController.setHook(other.gameObject);
         }
-        else if(other.gameObject.CompareTag("power"))
+        else if (other.gameObject.CompareTag("power"))
         {
             particleSystemScript.PlayParticleSystemAtPosition(transform.position);
             var w = other.gameObject.GetComponent<powerupPower>().power;
@@ -67,15 +71,17 @@ public class Slingshot : MonoBehaviour
             Destroy(other.gameObject);
             soundMnaager.instance.PlaySound(SoundName.POWERUP);
         }
-        else if(other.gameObject.CompareTag("deathTrigger"))
+        else if (other.gameObject.CompareTag("deathTrigger"))
         {
             soundMnaager.instance.PlaySound(SoundName.DEATH);
             soundMnaager.instance.PlaySound(SoundName.ELEDEATH);
             deathRoutine.startDeathRoutine();
         }
     }
-    private void OnCollisionEnter2D(Collision2D other) {
-        if(other.gameObject.CompareTag("wall") && isFlying){
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("wall") && isFlying)
+        {
             soundMnaager.instance.PlaySound(SoundName.HIT);
             animMethods.hurtPig();
         }
@@ -110,8 +116,10 @@ public class Slingshot : MonoBehaviour
         mousePosition.z = 0;
 
 
-        if (!isFlying)
+        if (!isFlying && !isWorldShifting)
         {
+            Debug.Log(isWorldShifting);
+
             if (Input.GetMouseButtonDown(0) && mousePosition.x < rb.position.x + dragRegionRadius && mousePosition.x > rb.position.x - dragRegionRadius && mousePosition.y < rb.position.y + dragRegionRadius && mousePosition.y < rb.position.y + dragRegionRadius)
             {
                 isDragging = true;
@@ -153,7 +161,9 @@ public class Slingshot : MonoBehaviour
                 isFlying = true;
                 rb.gravityScale = 1; // Enable gravity upon release
             }
-        }else{
+        }
+        else
+        {
             float RotDirection = Mathf.Sign(rb.velocity.x);
             rb.AddTorque(RotDirection * torque);
         }
@@ -177,5 +187,6 @@ public class Slingshot : MonoBehaviour
         yield return new WaitForSeconds(delay);
         hookSpawner.spawnHooks();
         worldShift.shiftWorld();
+        // isWorldShifting = false;
     }
 }

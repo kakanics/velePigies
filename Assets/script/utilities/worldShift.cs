@@ -66,5 +66,6 @@ public class worldShift : MonoBehaviour
         }
     
         animScript.pauseBkgScroll();
+        objects[0].GetComponent("Slingshot").GetComponent<Slingshot>().isWorldShifting = false;
     }
 }
