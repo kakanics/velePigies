@@ -19,6 +19,7 @@ public class Slingshot : MonoBehaviour
     public float hookCatchThreshold = 0.1f; // Maximum velocity to catch the hook
     public int initialWeight = 100;
     public TextMeshProUGUI weightText;
+    private bool won = false;
     public float hookReleaseTime = 0.5f;
     // following variables set using setReferences script 
     [HideInInspector] public cameraMovement cameraFollow;
@@ -28,6 +29,7 @@ public class Slingshot : MonoBehaviour
     [HideInInspector] public hookController hookController;
     [HideInInspector] public scoreManager scoreManager;
     [HideInInspector] public deathRoutine deathRoutine;
+    [HideInInspector] public winRoutine winRoutine;
     [HideInInspector] public playParticleSystem particleSystemScript;
     void Start()
     {
@@ -69,9 +71,11 @@ public class Slingshot : MonoBehaviour
             WeightManager.getInstance().modifyWeight(w);
             var newWeight = WeightManager.getInstance().playerWeight;
             weightText.text = newWeight.ToString();
-            if(newWeight >= animMethods.thresholdKing){
+            if (newWeight >= animMethods.thresholdKing && !won)
+            {
                 soundMnaager.instance.PlaySound(SoundName.WIN);
-                deathRoutine.startDeathRoutine("You won!");
+                winRoutine.startWinRoutine();
+                won = true;
             }
             Destroy(other.gameObject);
             soundMnaager.instance.PlaySound(SoundName.POWERUP);
@@ -123,8 +127,6 @@ public class Slingshot : MonoBehaviour
 
         if (!isFlying && !isWorldShifting)
         {
-            Debug.Log(isWorldShifting);
-
             if (Input.GetMouseButtonDown(0) && mousePosition.x < rb.position.x + dragRegionRadius && mousePosition.x > rb.position.x - dragRegionRadius && mousePosition.y < rb.position.y + dragRegionRadius && mousePosition.y < rb.position.y + dragRegionRadius)
             {
                 isDragging = true;
@@ -192,6 +194,5 @@ public class Slingshot : MonoBehaviour
         yield return new WaitForSeconds(delay);
         hookSpawner.spawnHooks();
         worldShift.shiftWorld();
-        // isWorldShifting = false;
     }
 }
