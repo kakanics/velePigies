@@ -12,6 +12,19 @@ public class animationMethods : MonoBehaviour
     public Animator pigAnimator, abaAnimator, kingAnimator;
     public int thresholdKing = 100, thresholdBig = 60;
     public CircleCollider2D playerCol2D;
+    private void Start() {
+        int diff = PlayerPrefs.GetInt("Difficulty", 1);
+        if (diff == 1){
+            thresholdBig = 60;
+            thresholdKing = 100;
+        } else if (diff == 2){
+            thresholdBig = 100;
+            thresholdKing = 160;
+        } else if (diff == 3){
+            thresholdBig = 200;
+            thresholdKing = 300;
+        }
+    }
     public void triggerBkgScroll(){
         bkg.SetTrigger("animStart");
     }

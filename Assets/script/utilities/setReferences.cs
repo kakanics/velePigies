@@ -11,7 +11,7 @@ public class setReferences : MonoBehaviour
     public scoreManager scoreManager;
     public powerUpSpawner powerUpSpawner;
     public playParticleSystem particleSystemScript;
-    public AudioListener listener;
+    public AudioSource[] sources;
     void Awake()
     {
         worldShift=GetComponent<worldShift>();
@@ -27,7 +27,13 @@ public class setReferences : MonoBehaviour
 
         hookSpawner.scoreManager=scoreManager;
         scoreManager.GetComponent<comboManager>().animScript = animationMethods;
-        listener.enabled = PlayerPrefs.GetInt("Sound", 0) == 0;
+        int x = PlayerPrefs.GetInt("Sound", 0);
+        PlayerPrefs.SetInt("Sound", x); soundMnaager.instance.PlaySound(SoundName.CLICK);
+        foreach(var i in sources)
+        {
+            i.enabled = x == 0;
+        }
+
     }
 
 }

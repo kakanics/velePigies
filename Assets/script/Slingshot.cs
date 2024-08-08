@@ -67,7 +67,12 @@ public class Slingshot : MonoBehaviour
             var w = other.gameObject.GetComponent<powerupPower>().power;
             animMethods.modifyImage(w);
             WeightManager.getInstance().modifyWeight(w);
-            weightText.text = WeightManager.getInstance().playerWeight.ToString();
+            var newWeight = WeightManager.getInstance().playerWeight;
+            weightText.text = newWeight.ToString();
+            if(newWeight >= animMethods.thresholdKing){
+                soundMnaager.instance.PlaySound(SoundName.WIN);
+                deathRoutine.startDeathRoutine("You won!");
+            }
             Destroy(other.gameObject);
             soundMnaager.instance.PlaySound(SoundName.POWERUP);
         }
@@ -75,7 +80,7 @@ public class Slingshot : MonoBehaviour
         {
             soundMnaager.instance.PlaySound(SoundName.DEATH);
             soundMnaager.instance.PlaySound(SoundName.ELEDEATH);
-            deathRoutine.startDeathRoutine();
+            deathRoutine.startDeathRoutine("You lost!");
         }
     }
     private void OnCollisionEnter2D(Collision2D other)

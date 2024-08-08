@@ -138,7 +138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   power: 0
-  powerUpSprite: {fileID: 21300000, guid: 5af66eebb76b66249b5a4ecf7c2639fc, type: 3}
+  powerUpSprite: {fileID: 21300000, guid: d9bf7253a71fbe742bb9e40c8bae6718, type: 3}
   powerDownSprite: {fileID: 21300000, guid: 011eb6c4d86550245bc9c15cfb3bdb5b, type: 3}
   showPower: 0
 --- !u!50 &290026651899789432
@@ -194,6 +194,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   y: -7
+  checkInterval: 2
 --- !u!1 &7231194796431886613
 GameObject:
   m_ObjectHideFlags: 0

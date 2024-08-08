@@ -15,7 +15,8 @@ public enum SoundName
     WOOSH,
     CLICK,
     CLICK_ALT,
-    SLIDE
+    SLIDE,
+    WIN
 }
 
 public class soundMnaager : MonoBehaviour
@@ -40,7 +41,7 @@ public class soundMnaager : MonoBehaviour
         }
 
         // Initialize the audio source and dictionary
-        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource = gameObject.GetComponent<AudioSource>();
         audioClipDictionary = new Dictionary<SoundName, AudioClip>();
 
         // Populate the dictionary with audio clips
@@ -64,6 +65,7 @@ public class soundMnaager : MonoBehaviour
     // Method to play a sound by enum
     public void PlaySound(SoundName soundName)
     {
+        if(audioSource.enabled==false)return;
         if (audioClipDictionary.TryGetValue(soundName, out var clip))
         {
             audioSource.PlayOneShot(clip);

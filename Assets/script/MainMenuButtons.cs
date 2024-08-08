@@ -3,18 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class MainMenuButtons : MonoBehaviour
 {
     public GameObject BookletPanel, SettingsPanel, CreditsPanel, SoundManager;
     public Animator BookletAnimator, SettingsAnimator, CreditsAnimator;
     public Button soundToggleButton; // Reference to the button
-    public AudioListener audioListener;
+    public AudioSource[] sources;
     public float lastPress = 0, minTimeBetweenPressBooklet = 0.5f;
+    public Slider difficultySlider;
+    public TextMeshProUGUI difficultyText, difficultyShadow;
     void Start()
     {
         int x = PlayerPrefs.GetInt("Sound", 0);
-        audioListener.enabled = x == 0;
+        foreach(var i in sources)
+        {
+            i.enabled = x == 0;
+        }
         Color newColor = x == 1 ? Color.red : Color.white;
         ColorBlock cb = soundToggleButton.colors;
         cb.normalColor = newColor;
@@ -25,6 +31,8 @@ public class MainMenuButtons : MonoBehaviour
     }
     public void OpenSettings()
     {
+        int x = PlayerPrefs.GetInt("Difficulty", 1);
+        difficultySlider.value = x; 
         SettingsPanel.SetActive(true);
         soundMnaager.instance.PlaySound(SoundName.CLICK);
     }
@@ -65,10 +73,13 @@ public class MainMenuButtons : MonoBehaviour
     }
     public void SoundToggle()
     {
-        int x = PlayerPrefs.GetInt("Sound");
+        int x = PlayerPrefs.GetInt("Sound", 1);
         x = x == 1 ? 0 : 1;
         PlayerPrefs.SetInt("Sound", x); soundMnaager.instance.PlaySound(SoundName.CLICK);
-        audioListener.enabled = x == 0;
+                foreach(var i in sources)
+        {
+            i.enabled = x == 0;
+        }
         Color newColor = x == 1 ? Color.red : Color.white;
         ColorBlock cb = soundToggleButton.colors;
         cb.normalColor = newColor;
@@ -106,5 +117,12 @@ public class MainMenuButtons : MonoBehaviour
     public void _exitBooklet()
     {
         BookletPanel.SetActive(false);
+    }
+    public void changeSliderSetting(){
+        soundMnaager.instance.PlaySound(SoundName.CLICK);
+        int x = Mathf.RoundToInt(difficultySlider.value);
+        difficultyText.text = "Difficulty: " + (x == 1 ? "Easy" : x == 2 ? "Normal" : "Hard");
+        difficultyShadow.text = "Difficulty: " + (x == 1 ? "Easy" : x == 2 ? "Normal" : "Hard");
+        PlayerPrefs.SetInt("Difficulty", x);
     }
 }

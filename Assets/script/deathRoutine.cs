@@ -7,7 +7,7 @@ using TMPro;
 public class deathRoutine : MonoBehaviour
 {
     public GameObject deathUI, hooks, powerUps, player, scoreCard, comboCard;
-    public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI scoreText, restartMenuTitleText;
     public scoreManager scoreManager;
     public void restart(){
         soundMnaager.instance.PlaySound(SoundName.CLICK);
@@ -17,10 +17,11 @@ public class deathRoutine : MonoBehaviour
         soundMnaager.instance.PlaySound(SoundName.CLICK);
         SceneManager.LoadScene(0);
     }
-    public void startDeathRoutine(){
+    public void startDeathRoutine(string title){
         if(scoreManager.score>PlayerPrefs.GetInt("HighScore")){
             PlayerPrefs.SetInt("HighScore",scoreManager.score);
         }
+        restartMenuTitleText.text = title;
         scoreText.text = "Score: " + scoreManager.score.ToString()+"\nHighScore: "+PlayerPrefs.GetInt("HighScore").ToString();
         deathUI.SetActive(true);
         soundMnaager.instance.PlaySound(SoundName.WOOSH);
@@ -30,4 +31,5 @@ public class deathRoutine : MonoBehaviour
         scoreCard.SetActive(false);
         comboCard.SetActive(false);
     }
+    
 }
